@@ -5,7 +5,7 @@ $flash = takeFlash();
 
 if (!user()):
 ?>
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SHOPPINGLIST V4.0 – Login</title><link rel="icon" type="image/png" sizes="64x64" href="assets/shoppinglist-favicon-64.png"><link rel="stylesheet" href="assets/app.css"><link rel="stylesheet" href="assets/shopping-view.css"></head>
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SHOPPINGLIST V4.1 – Login</title><link rel="icon" type="image/png" sizes="64x64" href="assets/shoppinglist-favicon-64.png"><link rel="stylesheet" href="assets/app.css"><link rel="stylesheet" href="assets/shopping-view.css"></head>
 <body class="login-page"><main class="login-card"><div class="brand"><img src="assets/shoppinglist-logo-256.png" alt="">SHOPPING<span>LIST</span></div><h1>Anmelden</h1><p class="muted">Schön, dass du wieder da bist.</p>
 <?php if ($flash): ?><div class="flash <?= e($flash['type']) ?>"><?= e($flash['message']) ?></div><?php endif; ?>
 <form method="post" action="action.php" class="form-stack"><input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>"><input type="hidden" name="action" value="login"><label>Benutzername<input name="name" autocomplete="username" required autofocus></label><label>Passwort<input type="password" name="password" autocomplete="current-password" required></label><button class="primary">Login</button></form></main></body></html>
@@ -29,11 +29,11 @@ $buyStmt = db()->prepare('SELECT a.ID,a.NAME,s.NAME SECTION_NAME,x.`COUNT` FROM 
 $buyStmt->execute([user()['id']]); $buy = $buyStmt->fetchAll();
 function nextSort(string $column, string $current, string $dir): string { return $column === $current && $dir === 'ASC' ? 'desc' : 'asc'; }
 ?>
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SHOPPINGLIST V4.0</title><link rel="icon" type="image/png" sizes="64x64" href="assets/shoppinglist-favicon-64.png"><link rel="stylesheet" href="assets/app.css"><link rel="stylesheet" href="assets/article-fixes.css"><link rel="stylesheet" href="assets/shopping-view.css"><script defer src="assets/app.js"></script></head><body>
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SHOPPINGLIST V4.1</title><link rel="icon" type="image/png" sizes="64x64" href="assets/shoppinglist-favicon-64.png"><link rel="stylesheet" href="assets/app.css"><link rel="stylesheet" href="assets/article-fixes.css"><link rel="stylesheet" href="assets/shopping-view.css"><script defer src="assets/app.js"></script></head><body>
 <header><div class="brand"><img src="assets/shoppinglist-logo-256.png" alt="">SHOPPING<span>LIST</span></div><div class="user-chip"><?= e(user()['name']) ?><?= isAdmin() ? ' · Admin' : '' ?><form method="post" action="action.php"><input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>"><input type="hidden" name="action" value="logout"><button class="link">Abmelden</button></form></div></header>
 <nav class="tabs">
-<?php if (isAdmin()): ?><a class="<?= $tab==='sections'?'active':'' ?>" href="?tab=sections">Bereiche (Einkaufszentrum)</a><a class="<?= $tab==='locations'?'active':'' ?>" href="?tab=locations">Orte (Zu Hause)</a><?php endif; ?>
-<a class="<?= $tab==='articles'?'active':'' ?>" href="?tab=articles">Artikel</a><a class="<?= $tab==='shopping'?'active':'' ?>" href="?tab=shopping">Einkaufsliste pflegen</a><a class="<?= $tab==='buy'?'active':'' ?>" href="?tab=buy">Einkaufen</a></nav>
+<a class="<?= $tab==='shopping'?'active':'' ?>" href="?tab=shopping">Einkaufsliste pflegen</a><a class="<?= $tab==='buy'?'active':'' ?>" href="?tab=buy">Einkaufen</a><?php if (isAdmin()): ?><a class="<?= $tab==='sections'?'active':'' ?>" href="?tab=sections">Bereiche (Einkaufszentrum)</a><a class="<?= $tab==='locations'?'active':'' ?>" href="?tab=locations">Orte (Zu Hause)</a><?php endif; ?>
+<a class="<?= $tab==='articles'?'active':'' ?>" href="?tab=articles">Artikel</a></nav>
 <main class="app-main"><?php if ($flash): ?><div class="flash <?= e($flash['type']) ?>"><?= e($flash['message']) ?></div><?php endif; ?>
 
 <?php if ($tab === 'sections' || $tab === 'locations'): $isSection=$tab==='sections'; $rows=$isSection?$sections:$locations; ?>
