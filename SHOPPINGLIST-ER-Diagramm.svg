@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <style>
+      .bg { fill:#f7f8fa; }
+      .entity { fill:#fff; stroke:#243447; stroke-width:2; rx:10; }
+      .title { fill:#243447; }
+      .titleText { fill:#fff; font:700 20px Arial,sans-serif; }
+      .attr { fill:#17202a; font:16px Arial,sans-serif; }
+      .key { font-weight:700; }
+      .rel { fill:none; stroke:#52667a; stroke-width:2.5; }
+      .card { fill:#b3261e; font:700 17px Arial,sans-serif; }
+      .label { fill:#52667a; font:italic 15px Arial,sans-serif; }
+      .heading { fill:#17202a; font:700 28px Arial,sans-serif; }
+      .note { fill:#52667a; font:15px Arial,sans-serif; }
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="900"/>
+  <text class="heading" x="50" y="48">SHOPPINGLIST V4.0 – ER-Diagramm (Min-Max-Notation)</text>
+  <text class="note" x="50" y="75">Kardinalitäten stehen jeweils an der beteiligten Entität.</text>
+
+  <!-- USER -->
+  <g transform="translate(60 130)">
+    <rect class="entity" width="300" height="235"/>
+    <path class="title" d="M10 0h280a10 10 0 0 1 10 10v42H0V10A10 10 0 0 1 10 0z"/>
+    <text class="titleText" x="18" y="34">USER</text>
+    <text class="attr key" x="18" y="82">PK  ID (AUTO_INCREMENT)</text>
+    <text class="attr" x="18" y="112">UQ  Name</text>
+    <text class="attr" x="18" y="142">Password</text>
+    <text class="attr" x="18" y="172">Admin : Boolean</text>
+    <text class="attr" x="18" y="202">Adhoc : Varchar(255), NULL</text>
+  </g>
+
+  <!-- ARTICLE_TO_SHOP -->
+  <g transform="translate(540 130)">
+    <rect class="entity" width="340" height="175"/>
+    <path class="title" d="M10 0h320a10 10 0 0 1 10 10v42H0V10A10 10 0 0 1 10 0z"/>
+    <text class="titleText" x="18" y="34">ARTICLE_TO_SHOP</text>
+    <text class="attr key" x="18" y="82">PK, FK  User_ID</text>
+    <text class="attr key" x="18" y="112">PK, FK  Article_ID</text>
+    <text class="attr" x="18" y="142">Count</text>
+  </g>
+
+  <!-- ARTICLE -->
+  <g transform="translate(1030 130)">
+    <rect class="entity" width="310" height="265"/>
+    <path class="title" d="M10 0h290a10 10 0 0 1 10 10v42H0V10A10 10 0 0 1 10 0z"/>
+    <text class="titleText" x="18" y="34">ARTICLE</text>
+    <text class="attr key" x="18" y="82">PK  ID (AUTO_INCREMENT)</text>
+    <text class="attr" x="18" y="112">UQ  Name</text>
+    <text class="attr" x="18" y="142">Reserve : Boolean</text>
+    <text class="attr" x="18" y="172">OrderNr</text>
+    <text class="attr key" x="18" y="202">FK  Section_ID</text>
+    <text class="attr key" x="18" y="232">FK  Home_Location_ID</text>
+  </g>
+
+  <!-- SECTION -->
+  <g transform="translate(720 580)">
+    <rect class="entity" width="300" height="175"/>
+    <path class="title" d="M10 0h280a10 10 0 0 1 10 10v42H0V10A10 10 0 0 1 10 0z"/>
+    <text class="titleText" x="18" y="34">SECTION</text>
+    <text class="attr key" x="18" y="82">PK  ID (AUTO_INCREMENT)</text>
+    <text class="attr" x="18" y="112">UQ  Name</text>
+    <text class="attr" x="18" y="142">OrderNr</text>
+  </g>
+
+  <!-- HOME_LOCATION -->
+  <g transform="translate(1060 580)">
+    <rect class="entity" width="300" height="175"/>
+    <path class="title" d="M10 0h280a10 10 0 0 1 10 10v42H0V10A10 10 0 0 1 10 0z"/>
+    <text class="titleText" x="18" y="34">HOME_LOCATION</text>
+    <text class="attr key" x="18" y="82">PK  ID (AUTO_INCREMENT)</text>
+    <text class="attr" x="18" y="112">UQ  Name</text>
+    <text class="attr" x="18" y="142">OrderNr</text>
+  </g>
+
+  <!-- Relations and min-max cardinalities -->
+  <path class="rel" d="M360 232 H540"/>
+  <text class="card" x="374" y="220">(0,n)</text>
+  <text class="card" x="485" y="220">(1,1)</text>
+  <text class="label" x="412" y="258">besitzt</text>
+
+  <path class="rel" d="M880 232 H1030"/>
+  <text class="card" x="892" y="220">(1,1)</text>
+  <text class="card" x="972" y="220">(0,n)</text>
+  <text class="label" x="926" y="258">betrifft</text>
+
+  <path class="rel" d="M1125 395 V485 H870 V580"/>
+  <text class="card" x="1062" y="425">(1,1)</text>
+  <text class="card" x="882" y="566">(0,n)</text>
+  <text class="label" x="929" y="478">liegt in Bereich</text>
+
+  <path class="rel" d="M1245 395 V580"/>
+  <text class="card" x="1255" y="425">(1,1)</text>
+  <text class="card" x="1255" y="566">(0,n)</text>
+  <text class="label" x="1260" y="490">befindet sich</text>
+
+  <text class="note" x="50" y="840">Löschregel: Alle Fremdschlüssel verwenden ON DELETE CASCADE.</text>
+</svg>

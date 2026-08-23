@@ -1,0 +1,31 @@
+/* Die generische Auswahllisten-Regel darf Tabellenzeilen nicht in Flexboxen verwandeln. */
+.table-wrap tr.select-row {
+  display: table-row;
+  width: auto;
+  padding: 0;
+  background: transparent;
+  font-weight: 400;
+}
+
+.table-wrap tr.select-row:hover,
+.table-wrap tr.select-row.selected {
+  background: #eef7fb;
+}
+
+.table-wrap th,
+.table-wrap td {
+  text-align: left;
+}
+
+/* Formularfelder müssen innerhalb ihrer Grid-Spalte schrumpfen können. */
+.article-editor input:not([type="checkbox"]),
+.article-editor select {
+  width: 100%;
+  min-width: 0;
+}
+
+.article-editor .check {
+  min-width: 0;
+  gap: .5rem;
+  white-space: nowrap;
+}

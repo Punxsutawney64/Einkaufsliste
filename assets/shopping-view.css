@@ -1,0 +1,16 @@
+.counter.has-quantity { background: #dff3e6; }
+.counter.has-quantity button { color: #27633d; }
+.view-switch { margin: 1rem 0; }
+.view-switch button.active { background: var(--blue); color: #fff; }
+.group-list.alphabetical .shopping-row:nth-of-type(even) { background: #f7fbfd; }
+.buy-filter { display: inline-flex; align-items: center; gap: .5rem; margin: 1rem 0; font-weight: 650; }
+.buy-filter input { width: 1.2rem; height: 1.2rem; accent-color: var(--orange); }
+[hidden] { display: none !important; }
+.adhoc-editor { margin: 1rem 0; }
+.adhoc-editor h2 { margin-top: 0; }
+.adhoc-editor textarea { width: 100%; min-height: 7rem; resize: vertical; padding: .85rem 1rem; border: 0; border-radius: 10px; background: var(--white); color: var(--ink); font: inherit; }
+.adhoc-editor textarea:focus { outline: 0; box-shadow: 0 0 0 3px #b8dceb; }
+.brand { display: inline-flex; align-items: center; gap: .65rem; }
+.brand img { width: 56px; height: 56px; object-fit: contain; flex: 0 0 auto; }
+.login-card .brand img { width: 64px; height: 64px; }
+.article-name { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; }
