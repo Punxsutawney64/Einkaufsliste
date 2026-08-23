@@ -53,10 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('change', (event) => {
+  if (event.target.matches('[data-buy-qty]')) {
+    adjustBuyQuantity(event.target);
+  }
   if (event.target.matches('[data-hide-completed], [data-buy-completed]')) {
     updateBuyVisibility();
   }
 });
+
+function adjustBuyQuantity(checkbox) {
+  const row = checkbox.closest('[data-buy-row]');
+  const countInput = row.querySelector('[data-buy-count-input]');
+  const badge = row.querySelector('[data-buy-count-badge]');
+  const original = Number(row.dataset.count);
+  let remaining = Number(countInput.value);
+  remaining = remaining <= 0 ? original : remaining - 1;
+  countInput.value = remaining;
+  checkbox.checked = remaining <= 0;
+  badge.textContent = (remaining <= 0 ? original : remaining) + '×';
+}
 
 function updateBuyVisibility() {
   const list = document.querySelector('.buy-list');

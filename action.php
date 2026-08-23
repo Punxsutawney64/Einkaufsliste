@@ -153,12 +153,21 @@ try {
     if ($action === 'buy_update') {
         $completed = array_values(array_unique(array_filter(array_map('intval', (array) ($_POST['completed'] ?? [])))));
         $completedAdhoc = array_fill_keys(array_map('intval', (array) ($_POST['completed_adhoc'] ?? [])), true);
+        $counts = (array) ($_POST['count'] ?? []);
         $userId = (int) user()['id'];
         db()->beginTransaction();
         if ($completed) {
             $placeholders = implode(',', array_fill(0, count($completed), '?'));
             $stmt = db()->prepare("DELETE FROM ARTICLE_TO_SHOP WHERE USER_ID = ? AND ARTICLE_ID IN ($placeholders)");
             $stmt->execute([$userId, ...$completed]);
+        }
+        $completedSet = array_fill_keys($completed, true);
+        $updateCount = db()->prepare('UPDATE ARTICLE_TO_SHOP SET `COUNT` = ? WHERE USER_ID = ? AND ARTICLE_ID = ?');
+        foreach ($counts as $articleId => $count) {
+            $articleId = (int) $articleId;
+            if (!$articleId || isset($completedSet[$articleId])) continue;
+            $count = max(1, min(10, (int) $count));
+            $updateCount->execute([$count, $userId, $articleId]);
         }
         if ($completedAdhoc) {
             $select = db()->prepare('SELECT ADHOC FROM `USER` WHERE ID = ? FOR UPDATE');
