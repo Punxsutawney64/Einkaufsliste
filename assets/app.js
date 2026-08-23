@@ -19,7 +19,7 @@ document.addEventListener('click', (event) => {
     step.parentElement.classList.toggle('has-quantity', Number(input.value) > 0);
   }
   const viewButton = event.target.closest('[data-shopping-view]');
-  if (viewButton) setShoppingView(viewButton.dataset.shoppingView);
+  if (viewButton) { setShoppingView(viewButton.dataset.shoppingView); applyShoppingFilter(); }
   const movement = event.target.closest('[data-direction]');
   if (movement) movement.form.elements.direction.value = movement.dataset.direction;
   const confirmButton = event.target.closest('[data-confirm]');
@@ -50,7 +50,36 @@ function setShoppingView(view) {
 document.addEventListener('DOMContentLoaded', () => {
   const selected = document.querySelector('.select-list > .select-row.selected');
   if (selected) selected.click();
+  applyShoppingFilter();
 });
+
+document.addEventListener('input', (event) => {
+  if (event.target.matches('[data-shopping-filter]')) applyShoppingFilter();
+});
+
+function applyShoppingFilter() {
+  const list = document.querySelector('[data-shopping-list]');
+  const filterInput = document.querySelector('[data-shopping-filter]');
+  const resetButton = document.querySelector('[data-shopping-reset]');
+  if (!list || !filterInput) return;
+  const query = filterInput.value.trim().toLocaleLowerCase('de');
+  list.querySelectorAll('.shopping-row').forEach(row => {
+    row.hidden = query !== '' && !row.dataset.name.toLocaleLowerCase('de').includes(query);
+  });
+  const alphabetical = list.classList.contains('alphabetical');
+  let heading;
+  let visibleInGroup = false;
+  [...list.children, null].forEach(item => {
+    if (!item || item.matches('[data-location-heading]')) {
+      if (heading) heading.hidden = alphabetical || !visibleInGroup;
+      heading = item;
+      visibleInGroup = false;
+    } else if (item.matches('.shopping-row') && !item.hidden) {
+      visibleInGroup = true;
+    }
+  });
+  if (resetButton) resetButton.disabled = query !== '';
+}
 
 document.addEventListener('change', (event) => {
   if (event.target.matches('[data-buy-qty]')) {
