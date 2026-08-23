@@ -10,6 +10,11 @@
 .adhoc-editor h2 { margin-top: 0; }
 .adhoc-editor textarea { width: 100%; min-height: 7rem; resize: vertical; padding: .85rem 1rem; border: 0; border-radius: 10px; background: var(--white); color: var(--ink); font: inherit; }
 .adhoc-editor textarea:focus { outline: 0; box-shadow: 0 0 0 3px #b8dceb; }
+.filter-editor { margin: 1rem 0; }
+.filter-editor label { display: block; margin-bottom: .4rem; font-weight: 650; }
+.filter-editor input { width: 100%; padding: .85rem 1rem; border: 0; border-radius: 10px; background: var(--white); color: var(--ink); font: inherit; }
+.filter-editor input:focus { outline: 0; box-shadow: 0 0 0 3px #b8dceb; }
+button:disabled { opacity: .5; cursor: not-allowed; }
 .brand { display: inline-flex; align-items: center; gap: .65rem; }
 .brand img { width: 56px; height: 56px; object-fit: contain; flex: 0 0 auto; }
 .login-card .brand img { width: 64px; height: 64px; }
