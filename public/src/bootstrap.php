@@ -8,7 +8,29 @@ session_set_cookie_params([
 ]);
 session_start();
 
-$config = require dirname(__DIR__) . '/config.php';
+/**
+ * Liefert den absoluten Pfad zum nicht öffentlich zugänglichen Datenordner.
+ *
+ * Auf dem Server liegt dort `private-dir.php` (ausserhalb der Versionsverwaltung,
+ * manuell im Document Root abgelegt) und liefert per `return` den Pfad zum
+ * Ordner ausserhalb des Document Root. Lokal existiert diese Datei nicht;
+ * dann wird der `private`-Ordner neben `public/` im Projektverzeichnis verwendet.
+ */
+function privateDir(): string
+{
+    static $dir;
+    if ($dir !== null) {
+        return $dir;
+    }
+    $marker = dirname(__DIR__) . '/private-dir.php';
+    $dir = is_file($marker) ? (string) require $marker : dirname(__DIR__, 2) . '/private';
+    if (!is_dir($dir)) {
+        throw new RuntimeException("Privater Datenordner nicht gefunden: $dir");
+    }
+    return $dir;
+}
+
+$config = require privateDir() . '/config.php';
 
 function db(): PDO
 {

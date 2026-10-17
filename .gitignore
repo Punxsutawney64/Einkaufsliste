@@ -1,0 +1,3 @@
+# Serverseitige Datei, liefert den Pfad zum privaten Datenordner ausserhalb
+# des Document Root. Existiert nur auf dem Server, nie im Repository.
+/public/private-dir.php
